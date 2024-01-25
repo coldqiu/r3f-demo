@@ -6,7 +6,7 @@ import * as THREE from "three";
 // import App from './App.jsx'
 // import App from "./App4.jsx";
 // import App from "./ReflectiveWall.jsx";
-import App from "./42.jsx";
+import App from "./43.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
