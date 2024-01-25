@@ -5,6 +5,8 @@ import {Gltf, Environment, Fisheye, KeyboardControls, Box} from "@react-three/dr
 import Controller from "ecctrl";
 import Model from "./Model";
 import Cube from "./Cube";
+import {PostProcessing} from "./PostProcessing";
+import XSpotLight from "./XSpotLight";
 
 export default function App() {
   const keyboardMap = [
@@ -15,6 +17,7 @@ export default function App() {
     // {name: "jump", keys: ["Space"]},
     // {name: "run", keys: ["Shift"]},
   ];
+
   return (
     <Canvas
       shadows
@@ -31,13 +34,14 @@ export default function App() {
        */
     >
       {/* <Fisheye zoom={0.4}> */}
-      <Environment files="/hdr/wrestling_gym_1k.hdr" ground={{scale: 10}} />
+      {/* <Environment files="/hdr/wrestling_gym_1k.hdr" ground={{scale: 10}} /> */}
       <directionalLight intensity={0.7} castShadow shadow-bias={-0.0004} position={[-20, 20, 20]}>
-        <perspectiveCamera attach="shadow-camera" />
         {/* args={[50, 1, 1, 2000]} */}
         {/* args={[-20, 20, 20, -20]} */}
+        <perspectiveCamera attach="shadow-camera" />
+        {/* 相机必须放 光照节点内！？ */}
       </directionalLight>
-      <ambientLight intensity={0.3} />
+      <ambientLight intensity={1.5}>{/* <perspectiveCamera attach="shadow-camera" /> */}</ambientLight>
       <Physics
         colliders={"hull"}
         gravity={[0, 0, 0]}
@@ -49,29 +53,37 @@ export default function App() {
       >
         <KeyboardControls map={keyboardMap}>
           <Controller
-            mode="PointToMove"
+            // mode="PointToMove"
+            capsuleHalfHeight={0.35}
+            capsuleRadius={0.3}
             camCollision={true}
+            characterInitDir={0.1}
             camCollisionOffset={0.01}
             maxVelLimit={5}
             position={[11, 0, 8]}
             camFollowMult={100}
-            // camMinDis={-0.21}
+            camMinDis={-0.1}
+            // camMaxDis={0.1}
             // capsuleRadius={1}
           >
-            {/* mode="PointToMove" */}
             <Cube />
-            {/* <Box /> */}
-            {/* position={[10, 2, 7]} */}
           </Controller>
         </KeyboardControls>
         {/* <RigidBody type="fixed" colliders="trimesh">
           <Gltf castShadow receiveShadow src="/model/farm_online.glb" />
         </RigidBody> */}
-
         <Model />
       </Physics>
       {/* </Fisheye> */}
       {/* <Gltf castShadow receiveShadow src="/model/farm_online.glb" /> */}
+      <PostProcessing />
+      {/* <spotLightHelper>
+        <spotLight args={"0xffffff"} position={[10.813, 3.06, 6.973]} intensity={1} />
+      </spotLightHelper> */}
+      {/* <spotLight args={["0xffffff"]} position={[10.813, 3.06, 6.973]} intensity={3} /> */}
+      {/* target={[10.813, 1.06, 6.973]}  */}
+      {/* spotLight 的target 是一个Object3D对象 */}
+      <XSpotLight />
     </Canvas>
   );
 }

@@ -12,10 +12,13 @@
   "dependencies": {
     "@react-three/drei": "^9.93.1",
     "@react-three/fiber": "^8.15.13",
+    "@react-three/postprocessing": "^2.15.12",
     "@react-three/rapier": "^1.2.1",
     "@types/three": "^0.160.0",
     "antd": "^5.13.1",
     "ecctrl": "^1.0.61",
+    "leva": "^0.9.35",
+    "postprocessing": "^6.34.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.160.0"
